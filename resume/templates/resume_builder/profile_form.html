@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Profile</title>
+        <style>
+            .form-section { margin: 20px; }
+            .errorlist { color: red; }
+            button { margin-top: 10px; }
+        </style>
+    </head>
+    <body>
+        <h1>Resume Builder - Profile</h1>
+        <div class="form-section">
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">Save And Continue</button>
+            </form>
+            <a href="{% url 'education' %}">Skip to Education</a>
+        </div>
+    </body>
+</html>

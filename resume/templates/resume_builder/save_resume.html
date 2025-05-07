@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Save Resume</title>
+        <style>
+            .form-section { margin: 20px; }
+            button { margin-top: 10px; }
+        </style>
+    </head>
+    <body>
+        <h1>Resume Builder - Save</h1>
+        <div class="form-section">
+            <h2>Review Your Data</h2>
+            {% if session_data.Profile %}
+                <h3>Profile</h3>
+                <p>Name: {{ session_data.Profile.name }}</p>
+                <p>Email: {{ session_data.Profile.email }}</p>
+                <p>Phone: {{ session_data.Profile.phone }}</p>
+                <p>Address: {{ session_data.Profile.address }}</p>
+                <p>Date of Birth: {{ session_data.Profile.date_of_birth }}</p>
+                <p>Objective: {{ session_data.Profile.objective }}</p>
+            {% endif %}
+            {% if session_data.Education %}
+                <h3>Education</h3>
+                {% for edu in session_data.Education %}
+                    <p>{{ edu.degree }} - {{ edu.institution }}</p>
+                    <p>Start Date: {{ edu.start_date }}</p>
+                    <p>End Date: {{ edu.end_date }}</p>
+                    <p>Grade: {{ edu.grade }}</p>
+                {% endfor %}
+            {% endif %}
+            {% if session_data.Experience %}
+                <h3>Experience</h3>
+                {% for exp in session_data.Experience %}
+                    <p>{{ exp.position }} - {{ exp.company }}</p>
+                    <p>Start Date: {{ exp.start_date }}</p>
+                    <p>End Date: {{ exp.end_date }}</p>
+                    <p>Description: {{ exp.description }}</p>
+                {% endfor %}
+            {% endif %}
+            {% if session_data.Skills %}
+                <h3>Skills</h3>
+                {% for skill in session_data.Skills %}
+                    <p>{{ skill.skill }} - {{ skill.level }}</p>
+                {% endfor %}
+            {% endif %}
+            {% if session_data.Projects %}
+                <h3>Projects</h3>
+                {% for project in session_data.Projects %}
+                    <p>{{ project.title }} - {{ project.description }}</p>
+                    <p>Start Date: {{ project.start_date }}</p>
+                    <p>End Date: {{ project.end_date }}</p>
+                    <p>Link: {{ project.link }}</p>
+                {% endfor %}
+            {% endif %}
+            {% if session_data.Courses %}
+                <h3>Courses</h3>
+                {% for course in session_data.Courses %}
+                    <p>{{ course.course_name }} - {{ course.organization }}</p>
+                    <p>description: {{ course.description }}</p>
+                    <p>Duration: {{ course.duration }}</p>
+                    <p>Certificate Link: {{ course.certificate_link }}</p>
+                {% endfor %}
+            {% endif %}
+            <form method="post">
+                {% csrf_token %}
+                <button type="submit">Save Resume</button>
+            </form>
+            <a href="{% url 'profile' %}">Back to Profile</a>
+        </div>
+    </body>
+</html>

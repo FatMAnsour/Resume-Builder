@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Courses</title>
+        <style>
+            .form-section { margin: 20px; }
+            .formset-item { border: 1px solid #ccc; padding: 10px; margin-bottom: 10px; }
+            .errorlist { color: red; }
+            button { margin-top: 10px; }
+        </style>
+    </head>
+    <body>
+        <h1>Resume Builder - Courses</h1>
+        <div class="form-section">
+            <form method="post">
+                {% csrf_token %}
+                {{ formset.management_form }}
+                {% for form in formset %}
+                    <div class="formset-item">
+                        {{ form.as_p }}
+                        {% if form.instance.pk or form.initial %}
+                            <label><input type="checkbox" name="{{ form.prefix }}-DELETE"> Delete</input></label>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+                <button type="submit">Save And Continue</button>
+            </form>
+            <a href="{% url 'save_resume' %}">Skip to Save</a>
+        </div>
+    </body>
